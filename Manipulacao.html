@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Manipulação de DOM e Eventos</title>
+  <style>
+    .box {
+      width: 200px;
+      height: 100px;
+      background-color: lightgray;
+      text-align: center;
+      line-height: 100px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Item 1: Manipulando o DOM com getElementById -->
+  <p id="texto">Texto original</p>
+
+  <!-- Item 2: Usando o Objeto window -->
+  <button onclick="showMessage()">Clique para receber uma mensagem</button>
+
+  <!-- Item 3: Alterando o Estilo do Documento com o Objeto document -->
+  <button onclick="toggleBackgroundColor()">Mudar Cor de Fundo</button>
+
+  <!-- Item 4: Exibindo a URL Atual com o Objeto location -->
+  <button onclick="showURL()">Mostrar URL</button>
+  <div id="urlDisplay"></div>
+
+  <!-- Item 5: Navegando no Histórico com o Objeto history -->
+  <button onclick="goBack()">Voltar à página anterior</button>
+
+  <!-- Item 6: Verificando Cookies com o Objeto navigator -->
+  <button id="checkCookies">Verificar Cookies</button>
+
+  <!-- Item 7: Alterando a Cor com o Evento onmouseover -->
+  <div class="box" onmouseover="changeColor(this)" onmouseout="restoreColor(this)">
+    Passe o mouse aqui
+  </div>
+
+  <!-- Item 8: Detectando Teclas Pressionadas com o Objeto event -->
+  <input type="text" id="textInput" placeholder="Digite algo">
+
+  <script>
+    // Item 1
+    document.getElementById("texto").innerText = "Texto atualizado via DOM";
+
+    // Item 2
+    function showMessage() {
+      alert("Bem-vindo(a) ao nosso site!");
+      console.log("Bem-vindo(a) ao nosso site!");
+    }
+
+    // Item 3
+    function toggleBackgroundColor() {
+      document.body.style.backgroundColor = document.body.style.backgroundColor === "blue" ? "" : "blue";
+    }
+
+    // Item 4
+    function showURL() {
+      const urlDisplay = document.getElementById("urlDisplay");
+      urlDisplay.innerText = `URL atual: ${window.location.href}`;
+    }
+
+    // Item 5
+    function goBack() {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        alert("Não há uma página anterior no histórico.");
+      }
+    }
+
+    // Item 6
+    document.getElementById("checkCookies").addEventListener("click", function() {
+      const message = navigator.cookieEnabled ? "Cookies estão habilitados." : "Cookies não estão habilitados.";
+      alert(message);
+    });
+
+    // Item 7
+    function changeColor(element) {
+      element.style.backgroundColor = "yellow";
+    }
+
+    function restoreColor(element) {
+      element.style.backgroundColor = "lightgray";
+    }
+
+    // Item 8
+    document.getElementById("textInput").addEventListener("keydown", function(event) {
+      console.log(`Tecla pressionada: ${event.key}`);
+      if (!isNaN(event.key)) {
+        event.preventDefault();  // Impede a inserção de números
+      }
+    });
+  </script>
+
+</body>
+</html>
